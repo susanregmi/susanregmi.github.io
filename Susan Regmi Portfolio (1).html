@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Susan Regmi Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: left-aligned single column, sticky top nav, hero paired with a code card, then ruled sections. */
+:root {
+  --bg: #f4f7f8;
+  --surface: #ffffff;
+  --ink: #0f1d26;
+  --muted: #55656f;
+  --line: #d6dfe3;
+  --accent: #0a6c74;
+  --accent-ink: #ffffff;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c161c; --surface: #132029; --ink: #e8f0f3; --muted: #93a5af;
+    --line: #243540; --accent: #4fc3cc; --accent-ink: #062a2e;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c161c; --surface: #132029; --ink: #e8f0f3; --muted: #93a5af;
+  --line: #243540; --accent: #4fc3cc; --accent-ink: #062a2e;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+}
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 1.15; margin: 0; }
+
+/* nav */
+header.nav { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 12px; padding-bottom: 12px; flex-wrap: wrap; }
+.brand { font-family: var(--font-display); font-weight: 700; font-size: 19px; text-decoration: none; color: var(--ink); }
+.nav nav { display: flex; gap: 20px; flex-wrap: wrap; }
+.nav nav a { color: var(--muted); text-decoration: none; font-size: 15px; font-weight: 500; }
+.nav nav a:hover { color: var(--accent); }
+
+/* hero */
+.hero { padding: 64px 0 56px; }
+.hero .wrap { display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; align-items: center; }
+.tag { font-family: var(--font-mono); font-size: 14px; color: var(--accent); margin: 0 0 14px; }
+.hero h1 { font-size: clamp(40px, 6.5vw, 68px); font-weight: 700; letter-spacing: -0.02em; }
+.hero p.lead { font-size: 19px; color: var(--muted); max-width: 52ch; margin: 18px 0 28px; }
+.btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-block; padding: 11px 20px; border-radius: 8px; font-weight: 500; text-decoration: none; border: 1.5px solid var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); }
+.btn.ghost { color: var(--accent); }
+.btn:hover { filter: brightness(1.1); }
+.code {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+  font-family: var(--font-mono); font-size: 14px; line-height: 1.7;
+}
+.code .bar { display: flex; gap: 7px; padding: 10px 14px; border-bottom: 1px solid var(--line); align-items: center; color: var(--muted); font-size: 12px; }
+.code .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+.code pre { margin: 0; padding: 16px 18px; overflow-x: auto; }
+.code .k { color: var(--accent); }
+.code .s { color: var(--ink); }
+.code .c { color: var(--muted); }
+
+/* sections */
+section { padding: 56px 0; border-top: 1px solid var(--line); }
+.sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px; }
+.sec-head h2 { font-size: clamp(28px, 4vw, 38px); }
+.sec-head span { font-family: var(--font-mono); font-size: 14px; color: var(--muted); }
+.about { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.about p { margin: 0 0 14px; max-width: 62ch; }
+dl.facts { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 10px 20px; align-content: start; }
+dl.facts dt { color: var(--muted); font-size: 15px; }
+dl.facts dd { margin: 0; font-weight: 500; }
+
+.timeline { border-left: 2px solid var(--line); margin-left: 6px; padding-left: 26px; display: grid; gap: 28px; }
+.timeline article { position: relative; }
+.timeline article::before { content: ""; position: absolute; left: -33px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); }
+.timeline h3 { font-size: 21px; }
+.timeline .meta { color: var(--muted); font-size: 15px; margin: 2px 0 8px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.chips li { font-family: var(--font-mono); font-size: 13px; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); }
+
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 22px; }
+.card h3 { font-size: 19px; margin-bottom: 12px; }
+
+.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.proj { display: flex; flex-direction: column; gap: 12px; }
+.proj .ph { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.proj p { margin: 0; color: var(--muted); font-size: 16px; }
+.proj .chips { margin-top: auto; }
+.note { margin-top: 20px; font-size: 15px; color: var(--muted); }
+
+.contact { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.links { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.links li { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.links span:first-child { color: var(--muted); }
+form { display: grid; gap: 12px; }
+label { font-size: 15px; font-weight: 500; }
+input, textarea {
+  width: 100%; padding: 10px 12px; font: inherit; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+}
+textarea { min-height: 110px; resize: vertical; }
+button.btn { cursor: pointer; font: inherit; font-weight: 500; }
+#out { margin: 0; font-size: 15px; color: var(--muted); min-height: 1.6em; }
+
+footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 15px; }
+
+@media (max-width: 760px) {
+  .hero { padding-top: 40px; }
+  .hero .wrap, .about, .contact { grid-template-columns: 1fr; gap: 28px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">Susan Regmi</a>
+    <nav aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <p class="tag">BSc CSIT Student · Nepal</p>
+        <h1>Susan Regmi</h1>
+        <p class="lead">I am a Computer Science and Information Technology student who is building the skills to become a software developer. I like turning problems into small programs that work.</p>
+        <div class="btns">
+          <a class="btn primary" href="#projects">See my work</a>
+          <a class="btn ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+      <div class="code" aria-label="Short profile written as code">
+        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span>susan.js</span></div>
+<pre><span class="k">const</span> susan = {
+  <span class="k">name</span>:     <span class="s">"Susan Regmi"</span>,
+  <span class="k">degree</span>:   <span class="s">"BSc CSIT"</span>,
+  <span class="k">status</span>:   <span class="s">"Currently studying"</span>,
+  <span class="k">country</span>:  <span class="s">"Nepal"</span>,
+  <span class="k">goal</span>:     <span class="s">"Software Developer"</span>,
+  <span class="k">learning</span>: [<span class="s">"DSA"</span>, <span class="s">"Web"</span>, <span class="s">"Databases"</span>],
+};</pre>
+      </div>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head"><h2>About me</h2><span>01</span></div>
+      <div class="about">
+        <div>
+          <p>I am pursuing a Bachelor's degree in Computer Science and Information Technology (BSc CSIT) in Nepal. My coursework covers programming, data structures, databases and networks, and I practise by building small projects alongside my classes.</p>
+          <p>I am looking for internships and entry-level opportunities where I can write real code, learn from experienced developers and grow into a full software developer.</p>
+        </div>
+        <dl class="facts">
+          <dt>Role</dt><dd>BSc CSIT Student</dd>
+          <dt>Aim</dt><dd>Software Developer</dd>
+          <dt>Location</dt><dd>Nepal</dd>
+          <dt>Open to</dt><dd>Internships and junior roles</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap">
+      <div class="sec-head"><h2>Education</h2><span>02</span></div>
+      <div class="timeline">
+        <article>
+          <h3>Bachelor of Science in Computer Science and Information Technology (BSc CSIT)</h3>
+          <p class="meta">Currently pursuing · Nepal</p>
+          <ul class="chips">
+            <li>C Programming</li>
+            <li>Data Structures &amp; Algorithms</li>
+            <li>Database Management</li>
+            <li>Operating Systems</li>
+            <li>Computer Networks</li>
+            <li>Web Technology</li>
+            <li>Object-Oriented Programming</li>
+          </ul>
+        </article>
+        <!-- Add your +2 / school entry here by copying the article block above. -->
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head"><h2>Skills</h2><span>03</span></div>
+      <div class="skills">
+        <div class="card">
+          <h3>Programming</h3>
+          <ul class="chips"><li>C</li><li>C++</li><li>Java</li><li>Python</li></ul>
+        </div>
+        <div class="card">
+          <h3>Web</h3>
+          <ul class="chips"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+        </div>
+        <div class="card">
+          <h3>Databases and tools</h3>
+          <ul class="chips"><li>SQL</li><li>MySQL</li><li>Git</li><li>GitHub</li></ul>
+        </div>
+        <div class="card">
+          <h3>Core concepts</h3>
+          <ul class="chips"><li>Data Structures</li><li>Algorithms</li><li>OOP</li><li>Problem solving</li></ul>
+        </div>
+      </div>
+      <p class="note">Edit this list to match what you actually use.</p>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="sec-head"><h2>Projects</h2><span>04</span></div>
+      <div class="projects">
+        <article class="card proj">
+          <span class="ph">Sample project 1</span>
+          <h3>Student Management System</h3>
+          <p>A console or web app to add, search and update student records, backed by a database. Replace this with your own project and add the GitHub link.</p>
+          <ul class="chips"><li>Java</li><li>MySQL</li></ul>
+        </article>
+        <article class="card proj">
+          <span class="ph">Sample project 2</span>
+          <h3>Personal Portfolio Website</h3>
+          <p>This site. It is responsive, works in light and dark mode and is built with plain HTML and CSS.</p>
+          <ul class="chips"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+        </article>
+        <article class="card proj">
+          <span class="ph">Sample project 3</span>
+          <h3>Algorithm Visualiser</h3>
+          <p>A small tool that shows sorting and searching algorithms step by step. Replace with your own idea or class project.</p>
+          <ul class="chips"><li>JavaScript</li><li>DSA</li></ul>
+        </article>
+      </div>
+      <p class="note">These three are examples. Send me your real projects and I will swap them in.</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-head"><h2>Contact</h2><span>05</span></div>
+      <div class="contact">
+        <ul class="links">
+          <li><span>Email</span><a href="mailto:regmisusan955@gmail.com">regmisusan955@gmail.com</a></li>
+          <li><span>Location</span><span>Nepal</span></li>
+          <li><span>GitHub</span><a href="https://github.com/susanregmi">github.com/susanregmi</a></li>
+          <li><span>LinkedIn</span><span>[Your LinkedIn link]</span></li>
+        </ul>
+        <form id="f" novalidate>
+          <div><label for="n">Your name</label><input id="n" name="n" autocomplete="name"></div>
+          <div><label for="m">Message</label><textarea id="m" name="m"></textarea></div>
+          <button class="btn primary" type="submit">Copy message</button>
+          <p id="out" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Susan Regmi · BSc CSIT Student, Nepal</div>
+</footer>
+
+<script>
+  // The form cannot send mail from here, so it copies the message for the visitor to paste into an email.
+  document.getElementById("f").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var out = document.getElementById("out");
+    var n = document.getElementById("n").value.trim();
+    var m = document.getElementById("m").value.trim();
+    if (!m) { out.textContent = "Write a message first."; return; }
+    var text = "From: " + (n || "Anonymous") + "\n\n" + m;
+    try {
+      navigator.clipboard.writeText(text).then(
+        function () { out.textContent = "Copied. Paste it into an email to Susan."; },
+        function () { out.textContent = "Could not copy. Select the text and copy it yourself."; }
+      );
+    } catch (err) { out.textContent = "Could not copy. Select the text and copy it yourself."; }
+  });
+</script>
+</body>
+</html>
